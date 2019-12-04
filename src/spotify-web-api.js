@@ -115,6 +115,23 @@ SpotifyWebApi.prototype = {
    * @returns {Promise|undefined} A promise that if successful, returns an object containing information
    *          about the track. Not returned if a callback is given.
    */
+  getNowPlaying: function(callback) {
+    return WebApiRequest.builder(this.getAccessToken())
+      .withPath('/v1/me/player/currently-playing')
+      .withQueryParameters()
+      .build()
+      .execute(HttpManager.get, callback);
+  },
+
+  /**
+   * Look up a track.
+   * @param {string} trackId The track's ID.
+   * @param {Object} [options] The possible options, currently only market.
+   * @param {requestCallback} [callback] Optional callback method to be called instead of the promise.
+   * @example getTrack('3Qm86XLflmIXVm1wcwkgDK').then(...)
+   * @returns {Promise|undefined} A promise that if successful, returns an object containing information
+   *          about the track. Not returned if a callback is given.
+   */
   getTrack: function(trackId, options, callback) {
     // In case someone is using a version where options parameter did not exist.
     var actualCallback, actualOptions;
